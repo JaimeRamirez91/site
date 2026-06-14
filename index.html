@@ -1,28 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="anonymous">
-  <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap">
-  <link rel="preload" as="font" type="font/woff2" href="/site/assets/fa-brands-400-Ch568Ea9.woff2" crossorigin="anonymous">
-  <link rel="preload" as="font" type="font/woff2" href="/site/assets/fa-regular-400-9VThgXHM.woff2" crossorigin="anonymous">
-  <link rel="preload" as="font" type="font/woff2" href="/site/assets/fa-solid-900-QWY35r5r.woff2" crossorigin="anonymous">
-  <link rel="preload" as="font" type="font/woff2" href="/site/assets/fa-v4compatibility-BRdYr4HJ.woff2" crossorigin="anonymous">
-  <link rel="preload" as="font" type="font/ttf" href="/site/assets/fa-brands-400-DHHcbFjz.ttf" crossorigin="anonymous">
-  <link rel="preload" as="font" type="font/ttf" href="/site/assets/fa-regular-400-C54-fRIQ.ttf" crossorigin="anonymous">
-  <link rel="preload" as="font" type="font/ttf" href="/site/assets/fa-solid-900-Cm9M9sZB.ttf" crossorigin="anonymous">
-  <link rel="preload" as="font" type="font/ttf" href="/site/assets/fa-v4compatibility-DLBX5pNp.ttf" crossorigin="anonymous">
-
-  <meta charset="UTF-8" />
-  <link rel="icon" href="/site/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JV Solutions</title>
-  <script type="module" crossorigin src="/site/assets/index-EPf1V9SD.js"></script>
-  <link rel="stylesheet" crossorigin href="/site/assets/index-CYJXJ9De.css">
-</head>
-
-<body>
-  <div id="app"></div>
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="./logo2.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Personal portfolio of a creative developer." />
+    <title>Jaime Ramirez — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Apply theme before paint to avoid flash
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme = stored ?? (prefersDark ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+        } catch (_) {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-Bgh0-Hle.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-k9uJvzxj.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
 </html>
