@@ -1,0 +1,212 @@
+(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))l(t);new MutationObserver(t=>{for(const i of t)if(i.type==="childList")for(const r of i.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&l(r)}).observe(document,{childList:!0,subtree:!0});function s(t){const i={};return t.integrity&&(i.integrity=t.integrity),t.referrerPolicy&&(i.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?i.credentials="include":t.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function l(t){if(t.ep)return;t.ep=!0;const i=s(t);fetch(t.href,i)}})();const n="theme";function c(){const a=localStorage.getItem(n);return a==="light"||a==="dark"?a:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function o(a){document.documentElement.dataset.theme=a,localStorage.setItem(n,a);const e=document.querySelector("[data-theme-toggle]");e&&(e.setAttribute("aria-label",`Switch to ${a==="dark"?"light":"dark"} mode`),e.setAttribute("aria-pressed",String(a==="light")))}function d(){const e=(document.documentElement.dataset.theme??"dark")==="dark"?"light":"dark";return o(e),e}function p(){o(c());const a=document.querySelector("[data-theme-toggle]");a&&a.addEventListener("click",()=>{d()})}function u(){const a=document.querySelectorAll("[data-reveal]");if(!("IntersectionObserver"in window)){a.forEach(s=>s.classList.add("is-visible"));return}const e=new IntersectionObserver(s=>{s.forEach(l=>{if(l.isIntersecting){const t=l.target,i=Number(t.dataset.revealDelay??0);window.setTimeout(()=>t.classList.add("is-visible"),i),e.unobserve(t)}})},{threshold:.12,rootMargin:"0px 0px -40px 0px"});a.forEach(s=>e.observe(s))}function h(){const a=document.querySelectorAll("[data-skill-level]");if(a.length===0)return;const e=new IntersectionObserver(s=>{s.forEach(l=>{if(l.isIntersecting){const t=l.target,i=t.dataset.skillLevel||"0";t.style.setProperty("--skill-level",`${i}%`),t.classList.add("is-filled"),e.unobserve(t)}})},{threshold:.4});a.forEach(s=>e.observe(s))}function v(){const a=document.querySelectorAll(".nav__link[href^='#']");if(a.length===0)return;const e=Array.from(a).map(l=>{var r;const t=(r=l.getAttribute("href"))==null?void 0:r.slice(1);if(!t)return null;const i=document.getElementById(t);return i?{link:l,section:i}:null}).filter(l=>l!==null),s=()=>{const l=window.innerHeight*.3;let t=null;for(const{section:i}of e){const r=i.getBoundingClientRect();if(r.top-l<=0&&r.bottom>l){t=i.id;break}}for(const{link:i,section:r}of e)r.id===t?(i.classList.add("is-active"),i.setAttribute("aria-current","true")):(i.classList.remove("is-active"),i.removeAttribute("aria-current"))};window.addEventListener("scroll",s,{passive:!0}),s()}function _(){const a=document.querySelector("[data-nav-toggle]"),e=document.querySelector("[data-nav]");!a||!e||(a.addEventListener("click",()=>{const s=e.classList.toggle("is-open");a.setAttribute("aria-expanded",String(s))}),e.querySelectorAll("a").forEach(s=>{s.addEventListener("click",()=>{e.classList.remove("is-open"),a.setAttribute("aria-expanded","false")})}))}const g=[{title:"Nebula UI",description:"A composable design system powering 30+ internal tools with accessible primitives and theming.",tags:["TypeScript","React","Design Systems"],link:"#",repo:"#"},{title:"Pulse Analytics",description:"Real-time event pipeline processing 1B+ events/day with sub-second dashboards for product teams.",tags:["Node.js","Kafka","PostgreSQL"],link:"#",repo:"#"},{title:"Lumen Editor",description:"Collaborative markdown editor with CRDT-backed sync, offline support, and AI-assisted writing.",tags:["WebSockets","CRDT","Rust"],link:"#",repo:"#"},{title:"Atlas Maps",description:"Vector tile renderer with smooth WebGL transitions and dynamic theming for storytelling maps.",tags:["WebGL","TypeScript","Maps"],link:"#"}],m=[{name:"TypeScript",level:95},{name:"React / Next.js",level:92},{name:"Node.js",level:88},{name:"CSS / Design",level:90},{name:"PostgreSQL",level:80},{name:"Rust",level:65}],f=[{label:"GitHub",href:"https://github.com",icon:"GH"},{label:"LinkedIn",href:"https://linkedin.com",icon:"IN"},{label:"Twitter",href:"https://twitter.com",icon:"TW"},{label:"Email",href:"mailto:hello@example.com",icon:"@"}];function b(){return`
+    <a class="skip-link" href="#main">Skip to main content</a>
+  `}function k(){return`
+    <header class="nav" role="banner">
+      <div class="container nav__inner">
+        <a href="#hero" class="nav__brand" aria-label="Jaime Ramirez — Home">
+          <img class="nav__logo" src="./logo2.png" alt="" width="200" height="100" />
+        </a>
+        <button class="nav__toggle" data-nav-toggle aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
+        <nav class="nav__links" id="primary-nav" data-nav aria-label="Primary">
+          <a class="nav__link" href="#about" data-nav-link>About</a>
+          <a class="nav__link" href="#projects" data-nav-link>Projects</a>
+          <a class="nav__link" href="#skills" data-nav-link>Skills</a>
+          <a class="nav__link" href="#contact" data-nav-link>Contact</a>
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle color theme" aria-pressed="false">
+            <span class="visually-hidden">Toggle color theme</span>
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+            </svg>
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+  `}function y(){return`
+    <section id="hero" class="hero" aria-labelledby="hero-title">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow" data-reveal><span aria-hidden="true">👋</span> Hello, I'm</p>
+          <h1 id="hero-title" class="hero__title" data-reveal data-reveal-delay="80">
+            Building <em>delightful</em> web products with code &amp; design.
+          </h1>
+          <p class="hero__subtitle" data-reveal data-reveal-delay="160">
+            Full-stack engineer specializing in fast, accessible, and beautifully designed digital experiences — from design systems to data pipelines.
+          </p>
+          <div class="hero__cta" data-reveal data-reveal-delay="240">
+            <a class="btn btn--primary" href="#projects">
+              View my work
+              <span class="btn__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn--ghost" href="#contact">Get in touch</a>
+          </div>
+          <div class="hero__partner" data-reveal data-reveal-delay="320">
+            <span class="hero__partner-badge" aria-hidden="true">P</span>
+            <span><strong>Open to work</strong> — Available for freelance</span>
+          </div>
+        </div>
+        <div class="hero__visual" data-reveal data-reveal-delay="160">
+          <h2 class="visually-hidden">Project insights dashboard</h2>
+          <div class="hero__visual-head">
+            <span class="hero__visual-title">Project Insights</span>
+            <span class="hero__visual-pill" aria-label="Time range: last 30 days">Last 30 days</span>
+          </div>
+          <dl class="hero__visual-stats" aria-label="Key project metrics for the last 30 days">
+            <div class="hero__stat">
+              <dt class="hero__stat-label">Total commits</dt>
+              <dd class="hero__stat-value">284K<span class="hero__stat-delta" aria-label="up 12.5%">↗ +12.5%</span></dd>
+            </div>
+            <div class="hero__stat">
+              <dt class="hero__stat-label">Stars earned</dt>
+              <dd class="hero__stat-value">1,847<span class="hero__stat-delta" aria-label="up 8.2%">↗ +8.2%</span></dd>
+            </div>
+            <div class="hero__stat">
+              <dt class="hero__stat-label">Deployments</dt>
+              <dd class="hero__stat-value">892<span class="hero__stat-delta" aria-label="up 21.1%">↗ +21.1%</span></dd>
+            </div>
+          </dl>
+          <div class="hero__chart" role="img" aria-label="Line chart showing rising trend of activity from February 15 to March 15, climbing from around 2,000 to nearly 15,000">
+            <svg viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="lineFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="currentColor" stop-opacity="0.18" />
+                  <stop offset="100%" stop-color="currentColor" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0,90 C40,85 60,80 90,75 C130,68 160,72 200,55 C240,40 270,45 310,30 C350,15 380,20 400,10 L400,120 L0,120 Z" fill="url(#lineFill)" />
+              <path d="M0,90 C40,85 60,80 90,75 C130,68 160,72 200,55 C240,40 270,45 310,30 C350,15 380,20 400,10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+  `}function w(){return`
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section__header" data-reveal>
+          <span class="section__kicker">01 — About</span>
+          <h2 id="about-title" class="section__title">Engineer by craft, designer by curiosity.</h2>
+        </header>
+        <div class="about__grid">
+          <div class="about__media" data-reveal>
+            <div class="about__avatar">
+              <img src="./avatar.jpg" alt="Portrait of Jaime Ramirez" width="1024" height="1024" />
+            </div>
+            <div class="about__deco" aria-hidden="true"></div>
+          </div>
+          <div class="about__copy" data-reveal data-reveal-delay="120">
+            <p>
+              I'm a developer who lives at the intersection of design and engineering. For the past five
+              years I've helped startups and product teams ship interfaces that feel as good as they look —
+              from design systems and component libraries to full-stack apps and data pipelines.
+            </p>
+            <p>
+              I care deeply about the small details: the way a button springs back, the way a page
+              transitions, the way a chart reveals itself. The best software respects your time and attention.
+            </p>
+            <ul class="about__list" aria-label="Quick facts">
+              <li><span aria-hidden="true">✦</span> Based in the cloud, working globally</li>
+              <li><span aria-hidden="true">✦</span> Open-source contributor &amp; mentor</li>
+              <li><span aria-hidden="true">✦</span> Currently exploring WebGL and Rust</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  `}function $(){return`
+    <section id="projects" class="section section--alt" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section__header" data-reveal>
+          <span class="section__kicker">02 — Projects</span>
+          <h2 id="projects-title" class="section__title">Selected work I'm proud of.</h2>
+          <p class="section__lede">A handful of products I've designed, built, and shipped to real users.</p>
+        </header>
+        <div class="cards">${g.map((e,s)=>`
+      <article class="card" data-reveal data-reveal-delay="${s*80}" aria-labelledby="project-${s}-title">
+        <div class="card__thumb" aria-hidden="true">
+          <span class="card__index">0${s+1}</span>
+        </div>
+        <div class="card__body">
+          <h3 id="project-${s}-title" class="card__title">${e.title}</h3>
+          <p class="card__desc">${e.description}</p>
+          <ul class="card__tags" aria-label="Technologies used">
+            ${e.tags.map(l=>`<li>${l}</li>`).join("")}
+          </ul>
+          <div class="card__links">
+            ${e.link?`<a class="card__link" href="${e.link}" aria-label="View live site for ${e.title}">Live <span aria-hidden="true">↗</span></a>`:""}
+            ${e.repo?`<a class="card__link" href="${e.repo}" aria-label="View source code for ${e.title}">Code <span aria-hidden="true">↗</span></a>`:""}
+          </div>
+        </div>
+      </article>
+    `).join("")}</div>
+      </div>
+    </section>
+  `}function S(){return`
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="container">
+        <header class="section__header" data-reveal>
+          <span class="section__kicker">03 — Skills</span>
+          <h2 id="skills-title" class="section__title">My toolbox, sharpened daily.</h2>
+        </header>
+        <ul class="skills" aria-label="Technical skills and proficiency levels">${m.map((e,s)=>`
+      <li class="skill" data-reveal data-reveal-delay="${s*60}">
+        <div class="skill__head">
+          <span class="skill__name" id="skill-${s}-name">${e.name}</span>
+          <span class="skill__pct" aria-hidden="true">${e.level}%</span>
+        </div>
+        <div
+          class="skill__bar"
+          data-skill-level="${e.level}"
+          role="progressbar"
+          aria-labelledby="skill-${s}-name"
+          aria-valuenow="${e.level}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <span class="skill__fill"></span>
+        </div>
+      </li>
+    `).join("")}</ul>
+      </div>
+    </section>
+  `}function L(){return`
+    <section id="contact" class="section section--cta" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="cta" data-reveal>
+          <span class="section__kicker">04 — Contact</span>
+          <h2 id="contact-title" class="cta__title">Have an idea? <span class="gradient-text">Let's build it together.</span></h2>
+          <p class="cta__lede">
+            I'm always open to interesting projects, and friendly conversations about
+            software, design, or life.
+          </p>
+          <a class="btn btn--primary btn--lg" href="mailto:hello@example.com">
+            Say hello
+            <span class="btn__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="socials" aria-label="Social and contact links">${f.map(e=>`
+      <a class="social" href="${e.href}" data-reveal aria-label="${e.label} — opens in a new tab" target="_blank" rel="noopener noreferrer">
+        <span class="social__icon" aria-hidden="true">${e.icon}</span>
+        <span class="social__label">${e.label}</span>
+        <span class="social__arrow" aria-hidden="true">→</span>
+      </a>
+    `).join("")}</div>
+      </div>
+    </section>
+  `}function j(){return`
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__inner">
+        <p>© ${new Date().getFullYear()} Jaime Ramirez. Crafted with care.</p>
+        <a href="#hero" class="footer__top">
+          Back to top
+          <span aria-hidden="true">↑</span>
+        </a>
+      </div>
+    </footer>
+  `}function A(){const a=document.getElementById("app");if(!a)throw new Error("Missing #app root element");a.innerHTML=[b(),k(),`<main id="main" tabindex="-1">${y()}${w()}${$()}${S()}${L()}</main>`,j()].join(""),p(),u(),h(),v(),_()}document.getElementById("app")&&A();
